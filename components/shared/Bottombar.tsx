@@ -1,38 +1,52 @@
-"use client"
-import { sidebarLinks } from "@/constants";
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
+
+import { sidebarLinks } from "@/constants";
+import { useAuth } from "@clerk/nextjs";
 
 function Bottombar() {
-    const pathname = usePathname();
+  const pathname = usePathname();
+  console.log(`Current Path : ${pathname}`);
+  const { userId } = useAuth();
+
+  // Keeps tracks of current page being active.
+  let isActive = false;
+
   return (
-    <section className="bottombar">
-      <div className="bottombar_container">
-      {sidebarLinks.map((link) => {
-          const isActive =
-            (pathname.includes(link.route) && link.route.length > 1) ||
-            pathname === link.route;
+    <section className='bottombar'>
+      <div className='bottombar_container'>
+        {sidebarLinks.map((link) => {
+           isActive =
+            (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
+            console.log(`Pathname: ${pathname}, Link: ${link.route}, isActive: ${isActive}`);
+            if (link.route === "/profile") link.route = `${link.route}/${userId}`;
+
           return (
             <Link
               href={link.route}
               key={link.label}
-              className={`leftsidebar_link ${isActive && "bg-primary-500"}`}
+              className={`bottombar_link ${isActive && "bg-primary-500"}`}
             >
-            <div className="flex flex-col items-center gap-1">
               <Image
                 src={link.imgURL}
                 alt={link.label}
-                width={24}
-                height={24}
+                width={16}
+                height={16}
+                className='object-contain'
               />
-              <p className="text-subtle-medium text-light-1 max-sm:hidden">{link.label.split(/\s+/)[0]}</p>
-            </div>
+
+              <p className='text-subtle-medium text-light-1 max-sm:hidden'>
+                {link.label.split(/\s+/)[0]}
+              </p>
             </Link>
-          )}
-        )}
+          );
+        })}
       </div>
     </section>
   );
 }
+
 export default Bottombar;
