@@ -1,7 +1,5 @@
 # Text Harbor - Full Stack MERN Next.js 13 App
 
-![Text Harbor Logo]
-
 Text Harbor is a full-stack MERN (MongoDB, Express.js, React, Node.js) app developed with Next.js 13.4, featuring server-side rendering and various technologies to create a fast and feature-rich application for threaded discussions.
 
 ## Introduction
@@ -49,7 +47,6 @@ Text Harbor leverages several technologies to provide a seamless user experience
 - **TailwindCSS:** A utility-first CSS framework for responsive and customizable UI.
 - **Clerk:** For user authentication and authorization.
 - **UploadThing:** A file upload library for handling attachments.
-- **Other Technologies:** (Include any other relevant technologies used in your project.)
 
 ## License
 
